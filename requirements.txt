@@ -1,0 +1,4 @@
+Django==1.8.5
+facepy==1.0.7
+python-social-auth==0.2.13
+pillow-3.4.2
