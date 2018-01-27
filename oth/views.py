@@ -8,13 +8,13 @@ from django.contrib import messages
 from oth import models
 import requests.packages.urllib3
 requests.packages.urllib3.disable_warnings()
-from facepy import GraphAPI
+# from facepy import GraphAPI
 import datetime
 import time
 
 m_level = 1
 f_user = ""
-last = 100
+last = 2
 
 def index(request):
     user = request.user
@@ -88,13 +88,12 @@ def answer(request):
             m_level = player.max_level
             f_user = player.name
         player.save()
-        
         try:
             level = models.level.objects.get(l_number=player.max_level)
             return render(request, 'level_transition.html')
+
             return render(request, 'level.html', {'player': player, 'level': level})
         except:
-            return render(request, 'level_transition.html')
             global last
             if player.max_level > last:
                 return render(request, 'win.html', {'player': player}) 
@@ -118,7 +117,6 @@ def lboard(request):
     for pl in p:
         pl.rank = cur_rank
         cur_rank += 1
-
 
     return render(request, 'lboard.html', {'players': p})
 

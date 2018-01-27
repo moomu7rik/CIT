@@ -12,7 +12,7 @@ class player(models.Model):
     rank = models.IntegerField(default=0)
     timestamp = models.DateTimeField()
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
 
@@ -26,21 +26,21 @@ class level(models.Model):
     wrong = models.IntegerField(default=0)
 
 
-    def __unicode__(self):
+    def __str__(self):
         return self.text
 
 class Notif(models.Model):
     text = models.CharField(max_length=200)
     date = models.DateTimeField(datetime.datetime.now())
 
-    def __unicode__(self):
+    def __str__(self):
         return self.text
 
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.user.username
 
 

@@ -37,7 +37,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'social.apps.django_app.default',
+    'social_django',
     'oth',
 )
 
@@ -67,8 +67,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-		        'social.apps.django_app.context_processors.backends',
-	            'social.apps.django_app.context_processors.login_redirect',
+                'social_django.context_processors.backends',  # <- Here
+                'social_django.context_processors.login_redirect', # <- Here
             ],
         },
     },
@@ -114,14 +114,17 @@ STATICFILES_DIRS = (
 )
 
 MIDDLEWARE_CLASSES += (
-    'social.apps.django_app.middleware.SocialAuthExceptionMiddleware',
+    # 'social.apps.django_app.middleware.SocialAuthExceptionMiddleware',
 )
 
 AUTHENTICATION_BACKENDS = (
-   'social.backends.facebook.FacebookOAuth2',
-   'social.backends.google.GoogleOAuth2',
-   'social.backends.twitter.TwitterOAuth',
-   'django.contrib.auth.backends.ModelBackend',
+ 'social_core.backends.open_id.OpenIdAuth',  # for Google authentication
+ 'social_core.backends.google.GoogleOpenId',  # for Google authentication
+ 'social_core.backends.google.GoogleOAuth2',  # for Google authentication
+ 'social_core.backends.github.GithubOAuth2',  # for Github authentication
+ 'social_core.backends.facebook.FacebookOAuth2',  # for Facebook authentication
+ 
+ 'django.contrib.auth.backends.ModelBackend',
 )
 
 MEDIA_URL = '/media/'
@@ -133,14 +136,14 @@ LOGIN_URL='/'
 
 SOCIAL_AUTH_LOGIN_ERROR_URL = '/'
 
-#details for fb TEST
-
 #local
-SOCIAL_AUTH_FACEBOOK_KEY = 1492885351019524
-SOCIAL_AUTH_FACEBOOK_SECRET = "86f0575c3e6bffc609c42656fc43e694"
 
-SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = "589893822589-k9t7tft5v1627j44bdppt52gn0osbfhf.apps.googleusercontent.com"
-SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = "q-XgrnQTeK8KHhfkQbxAR-it"
+SOCIAL_AUTH_FACEBOOK_KEY = 1363004167049233
+SOCIAL_AUTH_FACEBOOK_SECRET = "0df47d3858ce7d9c61bfed7dcf737e61"
+
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = "367516979662-97qqrl6obg7ug40dhfcu81p00t2c46e4.apps.googleusercontent.com"
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = "-5VyLp_AhiulbgSnARpL8R_w"
+
 
 #production
 """
@@ -151,15 +154,16 @@ SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = "320555245332-eudkbi26lahph2uon7so99iommmugqqv.a
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = "jlAhqqYnneowzNb9GlEiu9BL"
 """
 
+
 SOCIAL_AUTH_PIPELINE = (
-    'social.pipeline.social_auth.social_details',
-    'social.pipeline.social_auth.social_uid',
-    'social.pipeline.social_auth.auth_allowed',
-    'social.pipeline.social_auth.social_user',
-    'social.pipeline.user.get_username',
-    'social.pipeline.user.create_user',
+    'social_core.pipeline.social_auth.social_details',
+    'social_core.pipeline.social_auth.social_uid',
+    'social_core.pipeline.social_auth.social_user',
+    'social_core.pipeline.user.get_username',
+    'social_core.pipeline.user.create_user',
     'oth.views.save_profile',  # <--- set the path to the function
-    'social.pipeline.social_auth.associate_user',
-    'social.pipeline.social_auth.load_extra_data',
-    'social.pipeline.user.user_details'
+    'social_core.pipeline.social_auth.associate_user',
+    'social_core.pipeline.social_auth.load_extra_data',
+    'social_core.pipeline.user.user_details',
+    'social_core.pipeline.social_auth.associate_by_email',
 )
