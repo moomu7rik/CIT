@@ -54,6 +54,15 @@
         
       </div>
 
+{%if level.audio.url != '/media/audios/default.mp3' %}
+
+      <div class="jumbotron border-shadow" style="margin-top:15px;background-color:rgba(255, 255, 255, 0.4);">
+        <audio controls="" src="{{level.audio.url}}">
+        </audio>
+      </div>
+
+{%endif%}
+
         <div class="col-lg-6 rules border-shadow" style="padding:25px">
           
             {% block msgblock %}
