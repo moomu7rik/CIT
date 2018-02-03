@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/1.8/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
+from decouple import config
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -20,10 +21,10 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/1.8/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'a-d45n=7%8#w1k%ucn2ed^+7ys=3y!uqo#iz4tdt*xgrxf!9et'
+SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = DEBUG = config('DEBUG', default=True, cast=bool)
 
 ALLOWED_HOSTS = []
 
@@ -136,23 +137,13 @@ LOGIN_URL='/'
 
 SOCIAL_AUTH_LOGIN_ERROR_URL = '/'
 
-#local
 
-SOCIAL_AUTH_FACEBOOK_KEY = 1363004167049233
-SOCIAL_AUTH_FACEBOOK_SECRET = "0df47d3858ce7d9c61bfed7dcf737e61"
+SOCIAL_AUTH_FACEBOOK_KEY = config('SOCIAL_AUTH_FACEBOOK_KEY')
+SOCIAL_AUTH_FACEBOOK_SECRET = config('SOCIAL_AUTH_FACEBOOK_SECRET')
 
-SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = "367516979662-97qqrl6obg7ug40dhfcu81p00t2c46e4.apps.googleusercontent.com"
-SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = "-5VyLp_AhiulbgSnARpL8R_w"
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = config('SOCIAL_AUTH_GOOGLE_OAUTH2_KEY')
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = config('SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET')
 
-
-#production
-"""
-SOCIAL_AUTH_FACEBOOK_KEY = 556434777859262
-SOCIAL_AUTH_FACEBOOK_SECRET = "1fe4538f96413d4f2219402de7e9dd1a"
-
-SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = "320555245332-eudkbi26lahph2uon7so99iommmugqqv.apps.googleusercontent.com"
-SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = "jlAhqqYnneowzNb9GlEiu9BL"
-"""
 
 
 SOCIAL_AUTH_PIPELINE = (
