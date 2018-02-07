@@ -1,5 +1,5 @@
 #ONLINE TREASURE HUNT
-**ONLINE TREASURE HUNT** is a game in which you are to get the answers of few riddles in each level,by each level difficulty level will also incrase.You will be provided with a hint in the form of image or audio track.People who will solve maximnum riddles in less time will win the game.
+**ONLINE TREASURE HUNT** is a game in which you are to get the answers of few riddles in each level,by each level difficulty level will also increase.You will be provided with a hint in the form of image or audio track.People who will solve maximum riddles in less time will win the game.
 
 ##Technologies Used IN ONLINE TREASURE HUNT
 -HTML/CSS/JAVASCRIPT
@@ -7,8 +7,8 @@
 
 IF you want to work with  you need to follow following steps:
 
-1.It is better to work with *virtual enviornment* whenver working with any django projects.To create virtual enviornment use virtual enviornment need to be installed.
- -To install virtual enviornment:
+1.It is better to work with *virtual environment* whenver working with any django projects.To create virtual environment use virtual environment need to be installed.
+ -To install virtual environment:
  ```
  pip3 install virtualenv
 
@@ -90,7 +90,7 @@ pip3 install python-decouple
 
     + Copy the App ID and App Secret and add them to the `.env` file.
 
-8.Migrate the changes you have made to databse.
+8.Migrate the changes you have made to database.
     ```
     python3 manage.py makemigrations
     python3 manage.py migrate
