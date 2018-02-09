@@ -3,7 +3,7 @@
 
 ##Technologies Used IN ONLINE TREASURE HUNT
 -HTML/CSS/JAVASCRIPT
--Django(PYTHON)
+-Django(PYTHON3)
 
 IF you want to work with  you need to follow following steps:
 
