@@ -1,20 +1,17 @@
 from django.db import models
-from django.contrib import admin
 from django.contrib.auth.models import User
-import datetime
 
 
 class player(models.Model):
     user = models.OneToOneField(User)
     name = models.CharField(max_length=128)
-    max_level = models.IntegerField(default=1)
+    current_level = models.IntegerField(default=1)
     score = models.IntegerField(default=0)
     rank = models.IntegerField(default=0)
     timestamp = models.DateTimeField()
 
     def __str__(self):
         return self.name
-
 
 class level(models.Model):
     l_number = models.IntegerField()
@@ -29,21 +26,8 @@ class level(models.Model):
     def __str__(self):
         return self.text
 
-class Notif(models.Model):
-    text = models.CharField(max_length=200)
-    date = models.DateTimeField(datetime.datetime.now())
+class total_level(models.Model):
+    totallevel = models.IntegerField(default=4)
 
     def __str__(self):
-        return self.text
-
-
-class UserProfile(models.Model):
-    user = models.OneToOneField(User)
-
-    def __str__(self):
-        return self.user.username
-
-
-admin.site.register(player)
-admin.site.register(level)
-admin.site.register(UserProfile)
+        return str(self.totallevel)
