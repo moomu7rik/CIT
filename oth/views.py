@@ -18,7 +18,7 @@ def index(request):
         try:
             level = models.level.objects.get(l_number=player.current_level)
             return render(request, 'level.html', {'player': player, 'level': level})
-        except:
+        except models.level.DoesNotExist:
             if player.current_level > lastlevel:
                 return render(request, 'win.html', {'player': player})
             return render(request, 'finish.html', {'player': player})
@@ -52,7 +52,7 @@ def answer(request):
     
     m_level = models.total_level.objects.get(id=1)
     lastlevel = m_level.totallevel
-    print(lastlevel)
+    # print(lastlevel)
 
     ans = ""
     if request.method == 'POST':
@@ -60,7 +60,7 @@ def answer(request):
     player = models.player.objects.get(user_id=request.user.pk)
     try:
         level = models.level.objects.get(l_number=player.current_level)
-    except:
+    except models.level.DoesNotExist:
         if player.current_level > lastlevel:
             return render(request, 'win.html', {'player': player})
         return render(request, 'finish.html', {'player': player})

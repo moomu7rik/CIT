@@ -3,9 +3,12 @@
 {%block content%}
 
       <div class="row">
+
+        <a href="/"><button type="button" class="btn btn-primary btn-lg " style="margin-top:10px;">Go Back</button></a>
+
         <h1 class="lboardh1">Leaderboard</h1>
         
-        <div class="col-lg-8 col-lg-offset-2" style="">
+        <div class="col-lg-8 col-lg-offset-2">
           
             {% if players %}
             <div class="table-responsive">
@@ -24,7 +27,6 @@
             <strong>There are no players present.</strong>
         {% endif %}
 
-		<a href="/"><button type="button" class="btn btn-primary btn-lg " style="margin-top:10px;">Go Back</button></a>
 
         </div>
 

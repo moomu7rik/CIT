@@ -34,7 +34,7 @@
           </button>
           
           <ul class="dropdown-menu">
-        <li><a href="{% url 'auth:logout' %}?next={{ request.path }}"><b>Logout</b></a></li>
+        <li><a href="{% url 'auth:logout' %}?next={{ '/' }}"><b>Logout</b></a></li>
           </ul>
         </li>
 
@@ -99,6 +99,8 @@
           <p style="text-align:center;font-size:25px;color:#008080">Accuracy: {{level.accuracy}}</p>                    
         </div>
       </div>
+
+</div>
 
 {%endblock%}
 
