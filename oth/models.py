@@ -27,7 +27,7 @@ class level(models.Model):
         return self.text
 
 class total_level(models.Model):
-    totallevel = models.IntegerField(default=4)
+    totallevel = models.IntegerField(default=100)
 
     def __str__(self):
         return str(self.totallevel)

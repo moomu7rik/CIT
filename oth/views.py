@@ -6,6 +6,8 @@ from django.contrib import messages
 from oth import models
 import datetime
 
+def landing(request):
+    return render(request, 'landing.html')
 
 def index(request):
 
@@ -86,7 +88,8 @@ def answer(request):
                 return render(request, 'win.html', {'player': player}) 
             return render(request, 'finish.html', {'player': player})
     elif ans=="":
-        messages.error(request, "Please enter answer!")
+        pass 
+        # messages.error(request, "Please enter answer!")
 
     else:
         level.wrong = level.wrong + 1
