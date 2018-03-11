@@ -114,6 +114,9 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "static"),
 )
 
+STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), "static_root")
+
+
 MIDDLEWARE_CLASSES += (
     # 'social.apps.django_app.middleware.SocialAuthExceptionMiddleware',
 )
@@ -130,6 +133,7 @@ AUTHENTICATION_BACKENDS = (
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media') # Absolute path to the media directory
+
 
 LOGIN_REDIRECT_URL = '/'
 
