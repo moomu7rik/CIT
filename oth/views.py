@@ -6,8 +6,9 @@ from django.contrib import messages
 from oth import models
 import datetime
 
-def landing(request):
-    return render(request, 'landing.html')
+#def landing(request):
+    #return render(request, 'landing.html')
+
 
 def index(request):
 
@@ -19,7 +20,12 @@ def index(request):
         player = models.player.objects.get(user_id=request.user.pk)
         try:
             level = models.level.objects.get(l_number=player.current_level)
-            return render(request, 'level.html', {'player': player, 'level': level})
+            if datetime.datetime.now()<datetime.datetime(2019,7,31,00,4,25,701322):
+                return render(request, 'wait.html', {'player': player})
+            elif datetime.datetime.now()>datetime.datetime(2019,7,31,00,35,25,701322):
+                return render(request, 'finish.html', {'player': player})
+            else:
+                return render(request, 'level.html', {'player': player, 'level': level})
         except models.level.DoesNotExist:
             if player.current_level > lastlevel:
                 return render(request, 'win.html', {'player': player})
@@ -52,9 +58,11 @@ def save_profile(backend, user, response, *args, **kwargs):
 @login_required
 def answer(request):
     
+
     m_level = models.total_level.objects.get(id=1)
     lastlevel = m_level.totallevel
     # print(lastlevel)
+    
 
     ans = ""
     if request.method == 'POST':
@@ -71,7 +79,7 @@ def answer(request):
     if ans == level.answer:
         #print level.answer
         player.current_level = player.current_level + 1
-        player.score = player.score + 10
+        player.score = player.score + 4
         player.timestamp = datetime.datetime.now()
         level.numuser = level.numuser + 1
         level.accuracy = round(level.numuser/(float(level.numuser + level.wrong)),2)
@@ -79,6 +87,8 @@ def answer(request):
         player.save()
 
         try:
+            if datetime.datetime.now()>datetime.datetime(2019,7,31,00,35,25,701322):
+                return render(request, 'finish.html', {'player': player})
             level = models.level.objects.get(l_number=player.current_level)
             return render(request, 'level_transition.html')
 
@@ -87,15 +97,55 @@ def answer(request):
             if player.current_level > lastlevel:
                 return render(request, 'win.html', {'player': player}) 
             return render(request, 'finish.html', {'player': player})
-    elif ans=="":
-        pass 
-        # messages.error(request, "Please enter answer!")
+    elif ans=="": 
+        if datetime.datetime.now()>datetime.datetime(2019,7,31,00,35,25,701322):
+            return render(request, 'finish.html', {'player': player})
+        #messages.error(request, "Please enter answer!")
+    elif ans=="0":
+        player.current_level = player.current_level + 1
+        player.score = player.score + 0
+        player.timestamp = datetime.datetime.now()
+        level.accuracy = round(level.numuser/(float(level.numuser + level.wrong)),2)
+        level.save()
+        player.save()
+
+        try:
+            if datetime.datetime.now()>datetime.datetime(2019,7,31,00,35,25,701322):
+                return render(request, 'finish.html', {'player': player})
+            level = models.level.objects.get(l_number=player.current_level)
+            return render(request, 'level_transition.html')
+
+            return render(request, 'level.html', {'player': player, 'level': level})
+        except:
+            if player.current_level > lastlevel:
+                return render(request, 'win.html', {'player': player}) 
+            return render(request, 'finish.html', {'player': player})
+        
 
     else:
+        player.current_level = player.current_level + 1
+        player.score = player.score - 1
+        player.timestamp = datetime.datetime.now()
         level.wrong = level.wrong + 1
+        level.accuracy = round(level.numuser/(float(level.numuser + level.wrong)),2)
         level.save()
+        player.save()
 
-        messages.error(request, "Wrong Answer!, Try Again")
+        try:
+            if datetime.datetime.now()>datetime.datetime(2019,7,31,00,35,25,701322):
+                return render(request, 'finish.html', {'player': player})
+            level = models.level.objects.get(l_number=player.current_level)
+            return render(request, 'level_transition.html')
+
+            return render(request, 'level.html', {'player': player, 'level': level})
+        except:
+            if player.current_level > lastlevel:
+                return render(request, 'win.html', {'player': player}) 
+            return render(request, 'finish.html', {'player': player})
+        
+        
+
+        #messages.error(request, "Wrong Answer!, Try Again")
 
     return render(request, 'level.html', {'player': player, 'level': level})
 
